@@ -1,3 +1,5 @@
 .venv/
 resume/__pycache__/
-
+resumefit/__pycache__/
+resume/_pycache_/
+resumefit/_pycache_/
