@@ -4,3 +4,5 @@ resumefit/__pycache__/
 resume/_pycache_/
 resumefit/_pycache_/
 resume/migrations/__pycache__/
+resume/api_cred.py
+media/

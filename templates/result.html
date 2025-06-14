@@ -1,204 +1,255 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Results Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            padding: 0px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .header {
+            grid-column: span 2; /* Spans across both columns */
+            display: flex; /* Flexbox for centering content */
+            gap: 10px;
+            align-items: center; /* Vertical alignment */
+            justify-content: left; /* Horizontal alignment */
+            padding: 8px;
+            font-size: 24px; /* Larger font size for the logo */
+            font-weight: bold; /* Bold font style */            
+            background-color: #007bff; /* Slightly darker background */            
+        }
+        .header_1{
+            padding: 20px;
         }
 
-        body {
-            background-color: #f9fbfd;
-            color: #333;
+        .scorechart-section {
+            display: grid;
+            grid-template-rows: 4fr 1fr 1fr; /* Defines rows: header, content(x2), footer */
+            grid-template-columns: 1fr 1fr 1fr; /* Defines columns: narrow and wide */
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 5%;
+            justify-items: center;
         }
-
-        .dashboard-container {
+        .result-percentage{
+            font-size: 40px;
+        }
+        .result-chart-label{
+            font-size: 25px;
+        }
+        canvas {
+            max-width: 300px;
+            max-height: 150px;
+        }
+        .score-text {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .skills-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Header Section */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 10px;
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-        }
-
-        .avatar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .avatar img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-        }
-
-        /* Main Content */
-        .content {
-            display: flex;
-            justify-content: space-between;
             gap: 20px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .left-section {
-            flex: 1;
-            background: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .score-section {
-            text-align: center;
-        }
-
-        .score-section h2 {
-            font-size: 2.5rem;
-            color: #ff9800;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 15px 0;
-        }
-
-        .progress-bar div {
-            height: 20px;
-            background: #4caf50;
-            width: 60%;
-            text-align: right;
-            padding-right: 10px;
-            color: white;
-            line-height: 20px;
-        }
-
-        /* Skills */
-        .skills-section h3 {
-            margin-top: 20px;
-        }
-
-        ul {
-            list-style: none;
-            margin-top: 10px;
-        }
-
-        ul li {
-            margin-bottom: 5px;
-        }
-
-        /* Right Section */
-        .right-section {
-            flex: 1;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-heading {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .impact-section {
-            margin-top: 20px;
-        }
-
-        .impact-box {
-            background-color: #ffebee;
+        .skill-card {
             padding: 15px;
             border-radius: 5px;
-            color: #d32f2f;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #e0e0e0;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15;
+            list-style-type: none;
+            justify-content: left;
+        }
+        .skill-item {
+            padding: 6px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+            width: 25%;
+            text-align: center;
+            
+        }
+        .matched-skill {
+            background: #4caf50;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 19px;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-block;
+            margin: 3px;
+
+        }
+        .unmatched-skill {
+            background: #f44336;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 19px;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: inline-block;
+            margin: 3px;
+        }
+        .suggestions-container {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+        }
+        .suggestion-pad{
+            padding: 20px;
+        }
+        h3 {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000000;
+            letter-spacing: 0.4px;
             margin-bottom: 10px;
+        }
+        .footer {
+            grid-column: span 2; /* Spans across both columns */
+            display: flex; /* Flexbox for centering content */
+            align-items: center; /* Vertical alignment */
+            justify-content: center; /* Horizontal alignment */
+            padding: 15px;
+            font-size: 24px; /* Larger font size for the logo */
+            font-weight: bold; /* Bold font style */
+            border: 1px solid #ccc; /* Divider line */
+            color: #ccc; /* Slightly darker background */
+            background-color: #f9f9f9; /* Slightly darker background */
         }
     </style>
 </head>
-<body>
-    <!-- Dashboard Container -->
-    <div class="dashboard-container">
-        <!-- Header Section -->
+<body>    
+    <div class="container">
         <div class="header">
-            <h1>Result Dashboard</h1>
+            <img src="{% static 'aabb11.png' %}" alt="LOGO" height="40px">
+            ResumeFit
         </div>
+        <div class="header_1">
+            <h1>Results</h1>
+            <p>Analyze your resume's compatibility with the job description</p>
+        </div>
+        <div class="scorechart-section">
+            <canvas id="overallChart" width="300" height="150"></canvas>
+            <canvas id="techChart" width="300" height="150"></canvas>
+            <canvas id="softChart" width="300" height="150"></canvas>
+        
+            <div class="result-percentage">{{all_result.total_percentage}}</div>
+            <div class="result-percentage">{{all_result.tech_percentage}}</div>
+            <div class="result-percentage">{{all_result.soft_percentage}}</div>
+            <div class="result-chart-label">Overall Score</div>
+            <div class="result-chart-label">Technical Skill Score</div>
+            <div class="result-chart-label">Soft Skill Score</div>
+        </div>
+        <div class="skills-container">
+            <div class="skill-card">
+                <h3>Matched Technical Skills</h3>
+                <ul id="matchedTechnicalSkills" class="skill-list">
 
-        <!-- Content Section -->
-        <div class="content">
-            <!-- Left Section -->
-            <div class="left-section">
-                <div class="score-section">
-                    <h2>Your Score : 60/100</h2>
-                    <div class="progress-bar">
-                        <div style="width: 60%;">60%</div>
-                    </div>
-                </div>
+                    {% for n in all_result.matched_tech %}                                       
+                    <li class="skill-item matched-skill">{{n}}</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>Matched Soft Skills</h3>
+                <ul id="matchedSoftSkills" class="skill-list">
+
+                    {% for n in all_result.matched_soft %}
+                    <li class="skill-item matched-skill">{{n}}</li>
+                    {% endfor %}
+                    
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>Unmatched Technical Skills</h3>
+                <ul id="unmatchedTechnicalSkills" class="skill-list">
+
+                    {% for n in all_result.unmatched_tech %}
+                    <li class="skill-item unmatched-skill">{{n}}</li>
+                    {% endfor %}
+        
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>Unmatched Soft Skills</h3>
+                <ul id="unmatchedSoftSkills" class="skill-list">
+
+                    {% for n in all_result.unmatched_soft %}
+                    <li class="skill-item unmatched-skill">{{n}}</li>
+                    {% endfor %}
                 
-                <div class="skills-section">
-                    <h3>Recommended Technical Skills</h3>
-                    <ul>
-                        <li>Python</li>
-                        <li>Java</li>
-                        <li>C++</li>
-                        <li>JavaScript</li>
-                        <li>HTML, CSS</li>
-                    </ul>
-                    <h3>Recommended Soft Skills</h3>
-                    <ul>
-                        <li>Problem Solving</li>
-                        <li>Attention to Detail</li>
-                        <li>Teamwork</li>
-                        <li>Critical Thinking</li>
-                    </ul>
-                    <h3>Resume Formatting Suggestions</h3>
-                    <ul>
-                        <li>Add the work experience section</li>
-                        <li>Add the project section</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Right Section -->
-            <div class="right-section">
-                <h3>Skills Matching Score: 85/100</h3>
-                <h3>Soft Skills Matching Score: 90/100</h3>
-                <div class="impact-section">
-                    <h3 class="section-heading">Quantify Impact</h3>
-                    <p>Your experience lacks quantifiable achievements.</p>
-                    <div class="impact-box">Worked with Docker for containerization</div>
-                    <div class="impact-box">Managed Git/GitHub workflows</div>
-                    <div class="impact-box">Optimized system performance</div>
-                    <div class="impact-box">Gained hands-on experience with Azure</div>
-                    <div class="impact-box">Learned Linux administration</div>
-                </div>
+                </ul>
             </div>
         </div>
+        <div class="suggestion-pad">
+        <div class="suggestions-container" style="white-space: normal; font-family: 'Segoe UI', Arial, sans-serif; font-size: 19px; line-height: 1.6;">
+            <h2>Suggestions for Improvement</h2>
+            {{all_result.suggestion|safe}}
+        </div>
+        </div>
+        <div class="footer">ResumeFit</div>
     </div>
+    <script>
+        function createChart(ctx, matchPercentage) {
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Matched', 'Unmatched'],
+                    datasets: [{
+                        data: [matchPercentage, 100 - matchPercentage],
+                        backgroundColor: ['#4caf50', '#f44336'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    cutout: '70%',
+                    rotation: -90,
+                    circumference: 180,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        createChart(document.getElementById('overallChart').getContext('2d'), {{all_result.total_percentage}});
+        createChart(document.getElementById('techChart').getContext('2d'), {{all_result.tech_percentage}});
+        createChart(document.getElementById('softChart').getContext('2d'), {{all_result.soft_percentage}});
+    </script>
+    
 </body>
 </html>
