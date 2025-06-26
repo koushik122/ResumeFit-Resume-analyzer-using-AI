@@ -7,7 +7,6 @@ import resume.nltk_spacy as nltk_spacy
 import resume.ai as ai
 import markdown
 
-
 # Create your views here.
 def index(request):
     form = None
@@ -23,7 +22,6 @@ def index(request):
 
     form = DataForm()
     return render(request, "index.html", {"form": form})
-
 
 def result(request):
 
@@ -47,11 +45,9 @@ def result(request):
                 resume_text += page.extract_text()
     except Exception as e:
         messages.error(request, f"Error reading PDF file. Please upload a valid PDF.")
-        return redirect("index")
-    
+        return redirect("index")    
 
-    print(resume_text)
-    
+    print(resume_text)    
 
     def replace_key_of_dict(original_dict):
         updated_dict = {key.replace('-', ' '): value for key, value in original_dict.items()}
@@ -62,10 +58,8 @@ def result(request):
         updated_list = [item.replace('-', ' ') for item in original_list]
         # print(updated_list)
         return updated_list
-
     
     # spacy and nltk setup
-
     keywords_resume = nltk_spacy.keyword(resume_text)
     print(f"nltk keyword:  {keywords_resume}")
 
@@ -105,7 +99,6 @@ def result(request):
     print(f"{status_code}\n\n\n\n")
     resume_soft_unsorted=replace_of_list_item(resume_soft_unsorted)
 
-
     # Sorting all the keys based on their values
     job_desc_tech = dict(
         sorted(job_desc_tech_unsorted.items(), key=lambda item: item[1], reverse=True)
@@ -113,7 +106,6 @@ def result(request):
     job_desc_soft = dict(
         sorted(job_desc_soft_unsorted.items(), key=lambda item: item[1], reverse=True)
     )
-
 
     resume_tech = resume_tech_unsorted
     resume_soft = resume_soft_unsorted
@@ -198,7 +190,6 @@ def result(request):
         html = markdown.markdown(raw_text)
         return html
 
-
     result = calculate_scores(job_desc_tech, job_desc_soft, resume_tech, resume_soft)
 
     text, status_code = ai.suggestion(resume_text, result["unmatched_all_skills_string"])
@@ -208,7 +199,6 @@ def result(request):
         return redirect("index")
 
     cleaned_text = format_markdown(text)
-
 
     all_result = {
         "tech_score": result["tech_score"],
