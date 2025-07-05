@@ -1,1 +1,1 @@
-# ResumeFit-Resume-analyzer-using-AI-
+# ResumeFit-Resume-analyzer-using-AI.
