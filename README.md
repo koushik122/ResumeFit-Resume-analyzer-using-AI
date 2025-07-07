@@ -67,12 +67,14 @@ ResumeFit addresses these with intelligent resume analysis, skill matching, and 
 ---
 ## 📸 Screenshots
 
-*Home Page*
+**Home Page**
 ![](assets/screenshots/home.png)
-*Result Page*
+
+**Result Page**
 ![](assets/screenshots/result_1.png)
 ![](assets/screenshots/result_2.png)
-*Suggestions Section*
+
+**Suggestions Section**
 ![](assets/screenshots/suggestion_1.png)
 ![](assets/screenshots/suggestion_2.png)
 
