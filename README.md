@@ -67,31 +67,16 @@ ResumeFit addresses these with intelligent resume analysis, skill matching, and 
 ---
 ## 📸 Screenshots
 
-**Home Page**
+#### **Home Page**
 ![](assets/screenshots/home.png)
 
-**Result Page**
+#### **Result Page**
 ![](assets/screenshots/result_1.png)
 ![](assets/screenshots/result_2.png)
 
-**Suggestions Section**
+#### **Suggestions Section**
 ![](assets/screenshots/suggestion_1.png)
 ![](assets/screenshots/suggestion_2.png)
-
----
-## 📁 Project Structure
-
-ResumeFit/
-├── media/               # Uploaded files
-├── resume/              # Django app
-├── resumefit/           # Project settings (root config)
-├── static/              # CSS, JS, image files
-├── templates/           # HTML templates
-├── db.sqlite3           # SQLite database
-├── manage.py            # Django manager
-├── requirements.txt     # Project dependencies
-└── README.md            # Project overview (you're here!)
-
 
 ---
 ## 🚀 Getting Started
