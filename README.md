@@ -67,14 +67,14 @@ ResumeFit addresses these with intelligent resume analysis, skill matching, and 
 ---
 ## 📸 Screenshots
 
-#### **Home Page**
+### **Home Page**
 ![](assets/screenshots/home.png)
 
-#### **Result Page**
+### **Result Page**
 ![](assets/screenshots/result_1.png)
 ![](assets/screenshots/result_2.png)
 
-#### **Suggestions Section**
+### **Suggestions Section**
 ![](assets/screenshots/suggestion_1.png)
 ![](assets/screenshots/suggestion_2.png)
 
@@ -100,11 +100,11 @@ To enable AI-based skill classification, create a file named api_cred.py inside 
 python
 api_key = "YOUR_GEMINI_API_KEY"
 
-> [!important] Replace "YOUR_GEMINI_API_KEY" with your actual Gemini API key.
+> ⚠ Replace "YOUR_GEMINI_API_KEY" with your actual Gemini API key.
 
 Also, ensure you add this file to .gitignore to avoid exposing your API key:
 python
-# Inside .gitignore
+### Inside .gitignore
 resume/api_cred.py
 
 ### Run the server
