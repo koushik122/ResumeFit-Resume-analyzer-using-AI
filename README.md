@@ -82,18 +82,21 @@ ResumeFit addresses these with intelligent resume analysis, skill matching, and 
 ## 🚀 Getting Started
 
 ### Clone the repo
-bash
+```
 git clone https://github.com/koushik122/ResumeFit-Resume-analyzer-using-AI.git
 cd ResumeFit-Resume-analyzer-using-AI
+```
 
 ### Create and activate virtual environment
-bash
+```
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
+```
 
 ### Install dependencies
-bash
+```
 pip install -r requirements.txt
+```
 
 ### Add Your Gemini API Key
 To enable AI-based skill classification, create a file named api_cred.py inside the resume/ Django app directory with the following content:
@@ -108,11 +111,14 @@ python
 resume/api_cred.py
 
 ### Run the server
-bash
+```
 python manage.py runserver
+```
 
 ### Visit in your browser:
+```
 http://localhost:8000
+```
 
 ---
 ## 📈 Future Enhancements
