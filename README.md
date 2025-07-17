@@ -62,7 +62,7 @@ ResumeFit addresses these with intelligent resume analysis, skill matching, and 
 | Backend      | Django 5.1.3, Python 3.11+                                                                  |
 | NLP & AI     | spaCy 3.8.4, NLTK 3.9.1, PyPDF2 3.0.1, Gemini Flash 2.5 (for AI-based Skill Classification) |
 | Database     | SQLite3                                                                                     |
-| Tools        | Git, VS Code, Render (Deployment-ready)                                                     |
+| Tools        | Git, VS Code                                                                                |
 
 ---
 ## 📸 Screenshots
